@@ -10,7 +10,7 @@ const Messages = () => {
   const fetchMessages = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://arin-jaff.github.io/green-arrow-public/messages', {
+      const response = await axios.get('https://arin-jaff.github.io/messages', {
         headers: {
           Authorization: token,
         },
@@ -25,7 +25,7 @@ const Messages = () => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('https://arin-jaff.github.io/green-arrow-public/users', {
+        const response = await axios.get('https://arin-jaff.github.io/users', {
           headers: {
             Authorization: token,
           },
@@ -44,7 +44,7 @@ const Messages = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.post('https://arin-jaff.github.io/green-arrow-public/messages', { text, receiverUsername }, {
+      await axios.post('https://arin-jaff.github.io/messages', { text, receiverUsername }, {
         headers: {
           Authorization: token,
         },
@@ -63,7 +63,7 @@ const Messages = () => {
     const token = localStorage.getItem('token');
     try {
       // Fetch the current message to determine the current vote balance
-      const response = await axios.get(`https://arin-jaff.github.io/green-arrow-public/messages/${messageId}`, {
+      const response = await axios.get(`https://arin-jaff.github.io/messages/${messageId}`, {
         headers: {
           Authorization: token,
         },
@@ -74,14 +74,14 @@ const Messages = () => {
       const previousBalance = message.upvotes - message.downvotes;
 
       // Submit the vote
-      await axios.post('https://arin-jaff.github.io/green-arrow-public/vote', { messageId, type }, {
+      await axios.post('https://arin-jaff.github.io/vote', { messageId, type }, {
         headers: {
           Authorization: token,
         },
       });
 
       // Fetch the updated message to get the new vote balance
-      const updatedResponse = await axios.get(`https://arin-jaff.github.io/green-arrow-public/messages/${messageId}`, {
+      const updatedResponse = await axios.get(`https://arin-jaff.github.io/messages/${messageId}`, {
         headers: {
           Authorization: token,
         },
@@ -103,7 +103,7 @@ const Messages = () => {
       
       // I changed this
       if (scoreChange !== 0) {
-        await axios.post('https://arin-jaff.github.io/green-arrow-public/update-score', { username: message.receiverUsername, scoreChange }, {
+        await axios.post('https://arin-jaff.github.io/update-score', { username: message.receiverUsername, scoreChange }, {
           headers: {
             Authorization: token,
           },

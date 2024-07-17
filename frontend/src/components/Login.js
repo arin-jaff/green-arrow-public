@@ -12,7 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://arin-jaff.github.io/green-arrow-public/login', { username, password });
+      const response = await axios.post('https://arin-jaff.github.io/login', { username, password });
       localStorage.setItem('token', response.data.token); // Save token to local storage or state
       navigate('/users'); // Navigate to users page after successful login
     } catch (error) {

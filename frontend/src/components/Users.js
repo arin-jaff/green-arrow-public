@@ -16,7 +16,7 @@ const Users = () => {
       }
 
       try {
-        const response = await axios.get('https://arin-jaff.github.io/green-arrow-public/users', {
+        const response = await axios.get('https://arin-jaff.github.io/users', {
           headers: {
             Authorization: token,
           },

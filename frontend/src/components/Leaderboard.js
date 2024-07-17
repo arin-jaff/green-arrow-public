@@ -8,7 +8,7 @@ const Leaderboard = () => {
     const fetchLeaderboard = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://arin-jaff.github.io/green-arrow-public/leaderboard', {
+        const response = await axios.get('https://arin-jaff.github.io/leaderboard', {
           headers: {
             Authorization: token,
           },
