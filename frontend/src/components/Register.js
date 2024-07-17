@@ -12,7 +12,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://arin-jaff.github.io/green-arrow-public/register', { username, password });
+      await axios.post('https://arin-jaff.github.io/register', { username, password });
       alert('User registered successfully!');
       navigate('/login'); // Navigate to login page after successful registration
     } catch (error) {
