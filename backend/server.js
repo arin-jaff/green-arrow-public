@@ -44,7 +44,7 @@ MongoClient.connect(uri, {
 
   // Register a new user
 // Register a new user with initial score of 0
-app.post('/green-arrow-public/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -62,7 +62,7 @@ app.post('/green-arrow-public/register', async (req, res) => {
 
 
   // Login endpoint
-  app.post('/green-arrow-public/login', async (req, res) => {
+  app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await usersCollection.findOne({ username });
 
@@ -75,7 +75,7 @@ app.post('/green-arrow-public/register', async (req, res) => {
   });
 
   // Retrieve all users (authenticated)
-  app.get('/green-arrow-public/users', authenticate, async (req, res) => {
+  app.get('/users', authenticate, async (req, res) => {
     try {
       const users = await usersCollection.find({}, { projection: { username: 1 } }).toArray();
       res.json(users);
@@ -87,7 +87,7 @@ app.post('/green-arrow-public/register', async (req, res) => {
 
   // Post a new message (authenticated)
 // Update /messages endpoint to handle message posting with targeted user
-app.post('/green-arrow-public/messages', authenticate, async (req, res) => {
+app.post('/messages', authenticate, async (req, res) => {
   const { text, receiverUsername } = req.body;
   const message = { 
     userId: new ObjectId(req.user.id), 
@@ -123,7 +123,7 @@ app.post('/green-arrow-public/messages', authenticate, async (req, res) => {
 
 
   // Retrieve all messages with user details (authenticated)
-  app.get('/green-arrow-public/messages', authenticate, async (req, res) => {
+  app.get('/messages', authenticate, async (req, res) => {
     try {
       const messages = await messagesCollection.aggregate([
         {
@@ -154,7 +154,7 @@ app.post('/green-arrow-public/messages', authenticate, async (req, res) => {
   });
 
   // Vote on a message (authenticated)
-app.post('/green-arrow-public/vote', authenticate, async (req, res) => {
+app.post('/vote', authenticate, async (req, res) => {
   const { messageId, type } = req.body;
   const message = await messagesCollection.findOne({ _id: new ObjectId(messageId) });
 
@@ -201,7 +201,7 @@ app.post('/green-arrow-public/vote', authenticate, async (req, res) => {
   }
 });
 
-app.get('/green-arrow-public/leaderboard', authenticate, async (req, res) => {
+app.get('/leaderboard', authenticate, async (req, res) => {
   try {
     const users = await usersCollection.find({}, { projection: { username: 1, score: 1 } }).sort({ score: -1 }).toArray();
     res.json(users);
@@ -211,7 +211,7 @@ app.get('/green-arrow-public/leaderboard', authenticate, async (req, res) => {
   }
 });
 
-app.post('/green-arrow-public/update-score', authenticate, async (req, res) => {
+app.post('/update-score', authenticate, async (req, res) => {
   const { username, scoreChange } = req.body;
   try {
     await usersCollection.updateOne(
@@ -225,7 +225,7 @@ app.post('/green-arrow-public/update-score', authenticate, async (req, res) => {
   }
 });
 
-app.get('/green-arrow-public/messages/:id', authenticate, async (req, res) => {
+app.get('/messages/:id', authenticate, async (req, res) => {
   const { id } = req.params;
   try {
     const message = await messagesCollection.findOne({ _id: new ObjectId(id) });
