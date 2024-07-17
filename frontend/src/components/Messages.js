@@ -100,7 +100,8 @@ const Messages = () => {
       } else if ((previousBalance > 0 && newBalance === 0) || (previousBalance < 0 && newBalance === 0)) {
         scoreChange = -Math.sign(previousBalance);
       }
-
+      
+      // I changed this
       if (scoreChange !== 0) {
         await axios.post('https://arin-jaff.github.io/green-arrow-public/update-score', { username: message.receiverUsername, scoreChange }, {
           headers: {
